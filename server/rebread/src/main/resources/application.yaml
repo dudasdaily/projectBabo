@@ -1,0 +1,43 @@
+# src/main/resources/application.yaml
+
+spring:
+  # ===============================
+  # DATA SOURCE (DB 연결 정보)
+  # ===============================
+  datasource:
+    # MySQL JDBC 드라이버 클래스 이름
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # DB 연결 URL (rebread_db 데이터베이스 사용)
+    # localhost와 3306 포트는 환경에 맞게 수정하세요.
+    url: jdbc:mysql://localhost:3306/rebread_db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    # DB 사용자 이름 (사용자 환경에 맞게 수정)
+    username: root
+    # DB 비밀번호 (사용자 환경에 맞게 수정)
+    password: 1234
+
+  # ===============================
+  # JPA & Hibernate (ORM 설정)
+  # ===============================
+  jpa:
+    # DB 초기화 전략 설정
+    # - update: 앱 실행 시 엔티티와 DB 스키마를 비교하여 변경된 부분만 반영 (개발 초기 단계에 유용)
+    # - validate: 엔티티와 DB 스키마가 일치하는지만 확인
+    # - create: 앱 실행 시마다 기존 테이블을 삭제하고 새로 생성
+    # - none: 아무것도 하지 않음 (운영 환경에서 권장)
+    hibernate:
+      ddl-auto: update
+    
+    # JPA가 생성하는 SQL 쿼리를 로깅하기 위한 설정
+    properties:
+      hibernate:
+        # 실행되는 SQL 쿼리를 콘솔에 보여줌
+        show_sql: true
+        # SQL 쿼리를 보기 좋게 포맷팅
+        format_sql: true
+        # 사용할 데이터베이스 방언(Dialect)을 명시
+        dialect: org.hibernate.dialect.MySQLDialect
+        
+    # 데이터베이스의 스네이크 케이스(snake_case) 컬럼명을
+    # 자바 엔티티의 카멜 케이스(camelCase) 필드명과 자동으로 매핑
+    open-in-view: false
+    database-platform: org.hibernate.dialect.MySQLDialect
